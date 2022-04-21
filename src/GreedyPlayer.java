@@ -50,7 +50,6 @@ public class GreedyPlayer implements Player {
     }
     	return; 
     	
-    	
     	//calcuate score 
     	// overall score = myscore- oppscore
     	
@@ -63,7 +62,6 @@ public class GreedyPlayer implements Player {
 //            } while (!board.isValidMove(col));
 //            arb.setMove(col);
     }
-    
 	// Return the number of connect-4s that player #id has.
 	public int calcScore(Connect4Board board, int id)
 	{
