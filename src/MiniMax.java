@@ -1,5 +1,5 @@
 
-public class MiniMax{
+public class MiniMax implements Player{
 
 //	Initialize a maximum search depth to be 1
 //	While there is time remaining to calculate your move (you can check this with the arb.isTimeUp() method) and your current search depth is <= the number of moves remaining (you can check this with the board.numEmptyCells() method):
@@ -7,7 +7,6 @@ public class MiniMax{
 //	Set your move as the best move found so far
 //	Increment your maximum search depth
 
-	public class MinimaxPlayer implements Player {
 		int id; 
 		int opponent_id;
 	    int cols; 
@@ -41,28 +40,29 @@ public class MiniMax{
 	        	// do minimax search
 	        	//minimax(board,);??
 	        	
-		    	if (isMaximizing) {
+
 		    		int bestScore = -1000;
 		    		for(int i = 0; i <=6; i++)
 		    		{
+		        		if(board.isValidMove(i)){
 		    			board.move(i, id);
-		    			int score = minimax(board, depth - 1,false, arb);
-		    			if (bestScore < score) {
-		    				move =i;
+		    			int score = minimax(board, maxDepth- 1,false, arb);
+		    			if (bestScore < score) 
+		    			{
+		    				move = i;
 		    				bestScore = score;
 		    			}
 		    			board.unmove(i, id);
-		                arb.setMove(i); 
+		        		}
 		    		}
 	        	// start the first level of minimax, set move as you're finding the bestScore
 	            arb.setMove(move);
-	            maxDepth++;
-	        }        
-
+	            maxDepth++;    
+	        }
 	    }
 	    
-	    public int minimax(Connect4Board board, int depth, boolean isMaximizing, Arbitrator arb) {
-	    	
+	    public int minimax(Connect4Board board, int depth, boolean isMaximizing, Arbitrator arb) 
+	        throws TimeUpException {
 //	    	if depth = 0 or there's no moves left or time is up
 //	    			return the heuristic value of node 
 	    	
@@ -74,20 +74,23 @@ public class MiniMax{
 	    		int bestScore = -1000;
 	    		for(int i = 0; i <=6; i++)
 	    		{
+	        		if(board.isValidMove(i)){
 	    			board.move(i, id);
 	    			bestScore = Math.max(bestScore, minimax(board, depth - 1,false, arb));
-	    			board.unmove(i, id);
-	                arb.setMove(i); 
+	       			board.unmove(i, id);
+	        		}
 	    		}
+
 	    		return bestScore;
 	    	}
 	    	else{ // minimizing (other player)
 	    		int bestScore =1000;
 	    		for(int i = 0;i<=6; i++) {
+	        		if(board.isValidMove(i)){
 	    			board.move(i, opponent_id);
-	    			boardScore = Math.min(bestScore, minimax(board,depth -1, true,arb));
+	    			bestScore = Math.min(bestScore, minimax(board,depth -1, true,arb)); 
 	    			board.unmove(i, opponent_id);
-	                arb.setMove(i); 
+	        		}
 	    		}
 	    		return bestScore;
 	    	}
@@ -170,5 +173,4 @@ public class MiniMax{
 		}
 
 	}
-}
 
